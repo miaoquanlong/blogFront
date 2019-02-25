@@ -23,11 +23,21 @@
 
     mounted() {},
 
-    methods: {},
+    methods: {
+      teseapi() {
+        this.$request({
+          url:'edit?type=sanwen',
+          method: 'GET'
+        }).then(res => {
+          console.log(res);
+        })
+      }
+    },
 
     watch: {},
     created() {
-      // console.log(this.$router.options.routes)
+      this.teseapi()
+      console.log(this.$request) 
     },
 
   }

@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-      <navbar/>
+      <layout/>
   </div>
 </template>
 
 <script>
-import  navbar  from "@/views/layout/components/navbar";
+import  layout  from "@/views/layout/layout";
 
 
 export default {
   name: 'app',
   components: {
-    navbar
+    layout
   }
 }
 </script>

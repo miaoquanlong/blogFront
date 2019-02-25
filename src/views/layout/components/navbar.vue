@@ -4,14 +4,17 @@
         <el-menu-item v-for="(item,index) in route" :key="index" :index="item.name" 
         @click="$router.push(item.path)">{{item.name}}</el-menu-item>
       </el-menu>
-      <!-- <router-view/> -->
+      <!-- <transition name="fade"
+              mode="out-in">
+    <router-view />
+  </transition> -->
     </div>
   </template>
 
 <script>
 
   export default {
-    name:'',
+    name:'navbar',
     props:[''],
     data () {
       return {

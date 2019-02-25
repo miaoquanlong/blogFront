@@ -3,9 +3,11 @@ import App from './App.vue'
 import router from './router/'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import request from './Axios/index'
 
 Vue.use(ElementUI)
-
+// Vue.use($request)
+Vue.prototype.$request = request
 
 Vue.config.productionTip = false
 
