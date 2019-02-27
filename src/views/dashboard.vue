@@ -6,43 +6,42 @@
 
 <script>
 
-  export default {
-    name:'',
-    props:[''],
-    data () {
-      return {
+export default {
+  name: '',
+  props: [''],
+  data () {
+    return {
 
-      };
-    },
+    };
+  },
 
-    components: {},
+  components: {},
 
-    computed: {},
+  computed: {},
 
-    beforeMount() {},
+  beforeMount () { },
 
-    mounted() {},
+  mounted () { },
 
-    methods: {
-      teseapi() {
-        this.$request({
-          url:'edit?type=sanwen',
-          method: 'GET'
-        }).then(res => {
-          console.log(res);
-        })
-      }
-    },
+  methods: {
+    teseapi () {
+      this.$request({
+        url: '/api/addUser',
+        method: 'GET'
+      }).then(res => {
+        console.log(res);
+      })
+    }
+  },
 
-    watch: {},
-    created() {
-      this.teseapi()
-      console.log(this.$request) 
-    },
+  watch: {},
+  created () {
+    this.teseapi()
+    // console.log(this.$request)
+  },
 
-  }
+}
 
 </script>
 <style lang='' scoped>
-
 </style>
