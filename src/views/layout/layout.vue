@@ -1,53 +1,60 @@
 <template>
   <div>
-     <!-- <navbar/>  -->
-     
-  <el-container class="el-container__full">
-    <el-aside class="el-aside__fixed"
-              width="auto">
-      <!-- <sidebar :scrollbar-width="scrollbarWidth" /> -->
-    </el-aside>
     <el-container>
-      <el-header class="el-header__shadow">
-        <navbar/>
-      </el-header>
+      <el-aside width="20%" height="100%">
+        <el-container>
+          <el-header>
+            <el-row>
+              <h2>清风哟哟~~</h2>
+              <h4>博客,就要清爽，呦吼~~</h4>
+            </el-row>
+          </el-header>
+          <el-footer>
+            <el-menu :default-openeds="['1']" :collapse-transition="true" text-color="#fff" active-text-color="#ffd04b">
+              <el-submenu index="1">
+                <navbar />
+              </el-submenu>
+            </el-menu>
+          </el-footer>
+        </el-container>
+      </el-aside>
       <el-main>
         <app-main />
       </el-main>
     </el-container>
-  </el-container>
   </div>
 </template>
 
 <script>
-import AppMain  from '@/views/layout/components/AppMain'
-import navbar  from '@/views/layout/components/navbar'
+import AppMain from '@/views/layout/components/AppMain'
+import navbar from '@/views/layout/components/navbar'
 
 
-  export default {
-    name:'',
-    props:[''],
-    data () {
-      return {
+export default {
+  name: '',
+  props: [''],
+  data () {
+    return {
+      isCollapse: true
+    };
+  },
 
-      };
-    },
+  components: { navbar, AppMain },
 
-    components: {navbar, AppMain},
+  computed: {},
 
-    computed: {},
+  beforeMount () { },
 
-    beforeMount() {},
+  mounted () { },
 
-    mounted() {},
+  methods: {
+  },
 
-    methods: {},
+  watch: {}
 
-    watch: {}
-
-  }
+}
 
 </script>
-<style lang='' scoped>
+<style lang='scss' scoped>
 
 </style>

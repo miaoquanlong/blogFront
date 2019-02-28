@@ -1,0 +1,67 @@
+.time {
+    font-size: 13px;
+    color: #999;
+  }
+  
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+  
+  .button {
+    padding: 0;
+    float: right;
+  }
+  
+  .image {
+    width: 100%;
+    display: block;
+  }
+  
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  
+  .clearfix:after {
+    clear: both;
+  }
+
+
+  .el-menu {
+    list-style: none;
+    position: relative;
+    margin: 0;
+    padding-left: 0;
+    border-right: solid 0px #e6e6e6;
+  }
+  .el-main {
+    display: block;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: whitesmoke;
+    min-height: 900px;
+  }
+  .el-footer {
+    padding: 0 20px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    margin-top: 50px;
+  }
+  h2,
+  h3,
+  h4 {
+    font-family: cursive;
+  }
+  aside.el-aside {
+    max-width: 260px;
+  }

@@ -1,18 +1,8 @@
 import axios from 'axios'
-import {
-    Message
-} from 'element-ui'
-import {
-    devServer
-} from "../../vue.config";
-
-// let baseURL = devServer
-//创建axios实例
-// console.log(devServer);
 
 const $request = axios.create({
     baseURL: '/api',
-    timeout: 30000
+    timeout: 15000
 })
 // 添加请求拦截器
 $request.interceptors.request.use(function (config) {
@@ -26,25 +16,22 @@ $request.interceptors.request.use(function (config) {
 // 添加响应拦截器
 // respone拦截器
 axios.interceptors.response.use(response => {
-        return new Promise((resolve, reject) => {
-            const {
-                code,
-                data
-            } = response.data
-            switch (code) {
-                case 0:
-                    // 成功
-                    resolve(data)
-                    break
-                case -1:
-                    // 失败
-                    reject(data)
-                    break
-                default:
-                    resolve(data)
-            }
-        })
-    },
+    return new Promise((resolve, reject) => {
+        const { code, data } = response.data
+        switch (code) {
+            case 0:
+                // 成功
+                resolve(data)
+                break
+            case -1:
+                // 失败
+                reject(data)
+                break
+            default:
+                resolve(data)
+        }
+    })
+},
     error => {
         let message
         const {
@@ -65,10 +52,10 @@ axios.interceptors.response.use(response => {
         } else {
             message = '服务无法访问，请联系管理员'
         }
-        this.$message({
-            massage: message,
-            type: error
-        })
+        // this.$message({
+        //     massage: message,
+        //     type: error
+        // })
         return Promise.reject(error)
     }
 )
