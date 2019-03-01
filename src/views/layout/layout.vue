@@ -10,11 +10,19 @@
             </el-row>
           </el-header>
           <el-footer>
-            <el-menu :default-openeds="['1']" :collapse-transition="true" text-color="#fff" active-text-color="#ffd04b">
-              <el-submenu index="1">
-                <navbar />
-              </el-submenu>
-            </el-menu>
+            <el-row>
+              <el-menu :default-openeds="['1']" :collapse-transition="true" text-color="#fff" active-text-color="#ffd04b">
+                <el-submenu index="1">
+                  <navbar />
+                </el-submenu>
+              </el-menu>
+            </el-row>
+
+            <el-row style="width:50%">
+              <el-col>
+                <el-input placeholder="搜索一下鸭~"></el-input>
+              </el-col>
+            </el-row>
           </el-footer>
         </el-container>
       </el-aside>

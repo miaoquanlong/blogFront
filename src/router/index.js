@@ -55,21 +55,21 @@ export default new Router({
             name: 'Archives',
             component: Archives,
         },
-        {
-            path: '/Random',
-            name: 'Random',
-            component: Random,
-        },
-        {
-            path: '/Links',
-            name: 'Links',
-            component: Links,
-        },
-        {
-            path: '/TechnologyCenter',
-            name: '技术中心',
-            component: TechnologyCenter,
-        }
+        // {
+        //     path: '/Random',
+        //     name: 'Random',
+        //     component: Random,
+        // },
+        // {
+        //     path: '/Links',
+        //     name: 'Links',
+        //     component: Links,
+        // },
+        // {
+        //     path: '/TechnologyCenter',
+        //     name: '技术中心',
+        //     component: TechnologyCenter,
+        // }
     ]
 
 })
