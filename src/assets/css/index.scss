@@ -1,4 +1,8 @@
-.time {
+body {
+    background-color: whitesmoke;
+    position: relative
+}
+time {
     font-size: 13px;
     color: #999;
   }
@@ -17,6 +21,20 @@
     width: 100%;
     display: block;
   }
+  img {
+    background-image: none;
+    border-right-width: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    display: block;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    margin-left: auto;
+    border-left-width: 0px;
+    margin-right: auto;
+    padding-top: 0px;
+    max-width: 30%;
+}
   
   .clearfix:before,
   .clearfix:after {
@@ -35,6 +53,7 @@
     margin: 0;
     padding-left: 0;
     border-right: solid 0px #e6e6e6;
+    background-color: white
   }
   .el-main {
     display: block;
@@ -48,6 +67,10 @@
     padding: 20px;
     background-color: whitesmoke;
     min-height: 900px;
+    max-width: 1200px;
+    min-width: 1200px;
+    left: 23%;
+    position: absolute
   }
   .el-footer {
     padding: 0 20px;
@@ -63,5 +86,36 @@
     font-family: cursive;
   }
   aside.el-aside {
-    max-width: 260px;
+    text-align: -webkit-center;
+    position: fixed;
+    height: 100%;
+    background-color: white;
   }
+  .el-submenu .el-menu-item {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 45px;
+     min-width:100%; 
+}
+.el-menu--horizontal>.el-menu-item {
+      /* float: left; */
+    /* height: 60px; */
+    /* line-height: 60px; */
+    margin: 0;
+    /* border-bottom: 2px solid transparent; */
+    /* color: #909399; */
+    text-align: -webkit-center;
+}
+.el-menu--horizontal>.el-menu-item.is-active {
+    border-bottom: 1px solid #409EFF;
+    color: #303133;
+}
+.el-row {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0 0 20px 0;
+}
+.el-card.comment.is-always-shadow {
+    margin: 10px 10px 10px 10px;
+    text-align: center;
+}

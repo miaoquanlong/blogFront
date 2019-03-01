@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-row>
-      <el-col v-for="(item,index) in HomeArtic" :key="index">
+    <el-row v-for="(item,index) in HomeArtic" :key="index">
+      <el-col>
         <el-card :body-style="{ padding: '0px',}">
           <div style="padding: 14px;">
             <div>
