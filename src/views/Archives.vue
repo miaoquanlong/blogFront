@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <el-card :body-style="{ padding: '0px',}" class="comment">
       <el-form label-width="100px">
         <div style="padding: 14px;">

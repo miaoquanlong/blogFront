@@ -9,7 +9,7 @@ import Gustbook from '../views/Gustbook'
 import Donate from '../views/Donate'
 import Archives from '../views/Archives'
 import Links from '../views/Links'
-import Random from '../views/Random'
+import admin from '../views/admin'
 
 
 import Router from 'vue-router'
@@ -55,11 +55,11 @@ export default new Router({
             name: 'Archives',
             component: Archives,
         },
-        // {
-        //     path: '/Random',
-        //     name: 'Random',
-        //     component: Random,
-        // },
+        {
+            path: '/admin',
+            name: 'login',
+            component: admin,
+        },
         // {
         //     path: '/Links',
         //     name: 'Links',
