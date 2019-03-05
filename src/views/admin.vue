@@ -16,9 +16,9 @@
             <span @click="showPwd">
             </span>
           </el-form-item>
-          <el-button size="small" type="primary" @click.native.prevent="handleLogin">登录
+          <el-button size="small" type="primary" @click.native.prevent="handleLogin" :disabled="Boolean(this.$Cookies.get('name'))">登录
           </el-button>
-          <el-button size="small" type="primary" @click.native.prevent="registered">注册
+          <el-button size="small" type="primary" @click.native.prevent="registered" :disabled="Boolean(this.$Cookies.get('name'))">注册
           </el-button>
         </el-form>
       </div>
@@ -85,15 +85,16 @@ export default {
             Object.assign(para, res)
             this.$store.dispatch('LoginByUsername', para).then((res) => {
               this.$router.push({
-                path: '/dashboard'
+                path: '/'
               })
             }).catch(() => {
-
             })
-          }).catch(() => {
-
+          }).catch((err) => {
+            this.$message({
+              message: err,
+              type: 'warning'
+            })
           })
-
         } else {
           console.log('error submit!!')
           return false

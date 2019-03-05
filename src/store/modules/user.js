@@ -1,6 +1,4 @@
 import Cookies from 'js-cookie';
-import { reject } from 'q';
-
 const user = {
     state: {
         userName: '',
@@ -24,8 +22,18 @@ const user = {
                 Cookies.set('name', userInfo.userName);
                 Cookies.set('Uid', userInfo.userID);
                 resolve();
+                location.reload()
             })
 
+        },
+        //用户登出
+        FedLogOut ({ commit }) {
+            return new Promise(resolve => {
+                Cookies.remove('name');
+                Cookies.remove('Uid');
+                resolve();
+                location.reload()
+            })
         }
 
     }

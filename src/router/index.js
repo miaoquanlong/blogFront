@@ -9,7 +9,7 @@ import Gustbook from '../views/Gustbook'
 import Donate from '../views/Donate'
 import Archives from '../views/Archives'
 import Links from '../views/Links'
-import admin from '../views/admin'
+import login from '../views/admin'
 
 
 import Router from 'vue-router'
@@ -21,7 +21,7 @@ export default new Router({
     mode: 'history',
     routes: [
         {
-            path: '/dashboard',
+            path: '/',
             name: 'Home',
             component: dashboard,
         },
@@ -56,9 +56,9 @@ export default new Router({
             component: Archives,
         },
         {
-            path: '/admin',
+            path: '/login',
             name: 'login',
-            component: admin,
+            component: login,
         },
         // {
         //     path: '/Links',
