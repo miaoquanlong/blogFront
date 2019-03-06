@@ -32,9 +32,9 @@
     </el-row>
     <!-- 查看留言 -->
     <el-timeline>
-      <el-timeline-item timestamp="2018/4/12" placement="top" v-for="item in messages">
+      <el-timeline-item :timestamp="item.dataTime|momentTime" placement="top" v-for="item in messages">
         <el-card>
-          <h4>{{item.messageName}}</h4>
+          <h4>{{item.messageName}}说:</h4>
           <p> {{item.content}}</p>
         </el-card>
       </el-timeline-item>
@@ -55,7 +55,6 @@ export default {
       messages: [],
       placeholder: `${this.$Cookies.get('name')},` + '留下您的精彩言论吧~~',
       currentDate: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate() + '  ' + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()
-
     };
   },
 
