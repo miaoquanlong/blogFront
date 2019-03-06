@@ -1,6 +1,6 @@
 <template>
   <div>
-    Linkssssssssssssssssss
+    Links
   </div>
 </template>
 

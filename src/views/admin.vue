@@ -1,29 +1,32 @@
 <template>
-  <el-row>
-    <el-card :body-style="{ padding: '0px',}" class="comment ">
-      <div>
-        <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" class="login">
-          <div>
-            <h3 class="title">Blog login Page</h3>
-          </div>
-          <el-form-item prop="username">
-            <el-input class="inputstayle" name="username" clearable type="text" v-model="loginForm.username" placeholder="请输入正确的用户名!" />
-          </el-form-item>
-          <el-form-item prop="password">
-            <span>
-            </span>
-            <el-input class="inputstayle" name="password" clearable :type="passwordType" @keyup.enter.native="handleLogin" v-model="loginForm.password" placeholder="请输入密码!" />
-            <span @click="showPwd">
-            </span>
-          </el-form-item>
-          <el-button size="small" type="primary" @click.native.prevent="handleLogin" :disabled="Boolean(this.$Cookies.get('name'))">登录
-          </el-button>
-          <el-button size="small" type="primary" @click.native.prevent="registered" :disabled="Boolean(this.$Cookies.get('name'))">注册
-          </el-button>
-        </el-form>
-      </div>
-    </el-card>
-  </el-row>
+  <div>
+    <el-row>
+      <el-card :body-style="{ padding: '0px',}" class="comment ">
+        <div>
+          <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" class="login" :disabled="Boolean(this.$Cookies.get('name'))">
+            <div>
+              <h3 class="title">Blog login Page</h3>
+            </div>
+            <el-form-item prop="username">
+              <el-input class="inputstayle" name="username" clearable type="text" v-model="loginForm.username" placeholder="请输入正确的用户名!" />
+            </el-form-item>
+            <el-form-item prop="password">
+              <span>
+              </span>
+              <el-input class="inputstayle" name="password" clearable :type="passwordType" @keyup.enter.native="handleLogin" v-model="loginForm.password" placeholder="请输入密码!" />
+              <span @click="showPwd">
+              </span>
+            </el-form-item>
+            <el-button size="small" type="primary" @click.native.prevent="handleLogin">登录
+            </el-button>
+            <el-button size="small" type="primary" @click.native.prevent="registered">注册
+            </el-button>
+          </el-form>
+        </div>
+      </el-card>
+    </el-row>
+  </div>
+
 </template>
 
 <script>
@@ -49,6 +52,10 @@ export default {
     }
     return {
       loginForm: {
+        username: '',
+        password: ''
+      },
+      registerForm: {
         username: '',
         password: ''
       },

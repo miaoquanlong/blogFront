@@ -35,7 +35,7 @@
               <el-dropdown-item>注销</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <span v-if="this.$Cookies.get('name')">欢迎你{{this.$Cookies.get('name')}}</span>
+          <span v-if="this.$Cookies.get('name')">欢迎你:{{this.$Cookies.get('name')}}</span>
           <span v-else> 还没有登陆嗷~~：</span>
         </el-header>
         <app-main />
