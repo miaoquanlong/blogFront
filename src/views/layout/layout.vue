@@ -25,7 +25,7 @@
           </el-footer>
         </el-container>
       </el-aside>
-      <el-main>
+      <el-main class="appMains">
         <el-header style="text-align: right; font-size: 12px">
           <el-dropdown>
             <i class="el-icon-setting" style="margin-right: 15px;cursor: pointer"></i>

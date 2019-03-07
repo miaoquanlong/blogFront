@@ -35,14 +35,26 @@
       <el-timeline-item :timestamp="item.dataTime|momentTime" placement="top" v-for="item in messages">
         <el-card>
           <h4>{{item.messageName}}说:</h4>
-          <p> {{item.content}}</p>
+          <p v-if="!item.canEdit"> {{item.content}}</p>
+          <el-form>
+            <el-form-item>
+              <el-input v-model="item.content" v-if="item.canEdit"></el-input>
+            </el-form-item>
+          </el-form>
+
+          <el-button type="primary" size="mini" icon="el-icon-check" @click="replys" v-if="item.userID  == $Cookies.get('Uid')">回复</el-button>
+          <el-button type="primary" size="mini" icon="el-icon-edit" @click="editemessage(item.userID,item.ID,item)" v-if="!item.canEdit&&item.userID  == $Cookies.get('Uid')">修改</el-button>
+          <el-button type="primary" size="mini" icon="el-icon-edit" @click="ensuremessage(item.userID,item.ID,item)" v-if="item.canEdit&&item.userID  == $Cookies.get('Uid')">确认修改</el-button>
+          <el-button type="danger" size="mini" icon="el-icon-delete" @click="deletemessage(item.userID,item.ID)" v-if="item.userID  == $Cookies.get('Uid')">删除</el-button>
         </el-card>
       </el-timeline-item>
     </el-timeline>
+    <reply :show.sync=replyVisible></reply>
   </div>
 </template>
 
 <script>
+import reply from "@/components/reply";
 
 export default {
   name: '',
@@ -52,13 +64,14 @@ export default {
         name: '',
         text: ''
       },
+      replyVisible: false,
       messages: [],
       placeholder: `${this.$Cookies.get('name')},` + '留下您的精彩言论吧~~',
       currentDate: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate() + '  ' + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()
     };
   },
 
-  components: {},
+  components: { reply },
 
   computed: {},
 
@@ -69,13 +82,15 @@ export default {
     onSubmit () {
       this.$request.post('/api/message', {
         messageName: this.$Cookies.get('name'),
-        content: this.form.text
+        content: this.form.text,
+        userID: this.$Cookies.get('Uid'),
       }).then(res => {
         this.$message({
           message: res,
           type: 'success'
         })
         this.getmessage()
+        this.clear()
       }).catch(err => {
         this.$message({
           message: err,
@@ -93,6 +108,47 @@ export default {
     //清空输入的内容
     clear () {
       this.form.text = ''
+    },
+    //删除评论
+    deletemessage (ID, messageID) {
+      this.$request.post('/api/deletemessage', { userID: ID, messageID: messageID }).then(res => {
+        this.$message({
+          message: res,
+          type: 'success'
+        })
+        this.getmessage()
+      }).catch(err => {
+        this.$message({
+          message: err,
+          type: 'info'
+        })
+      })
+    },
+    //修改评论
+    editemessage (ID, messageID, item) {
+      item.canEdit = !item.canEdit
+    },
+    //确认修改
+    ensuremessage (ID, messageID, item) {
+      console.log(item);
+      this.$request.post('/api/editmessage', { userID: ID, messageID: messageID, content: item.content }).then(res => {
+        this.$message({
+          message: res,
+          type: 'success'
+        })
+        item.canEdit = !item.canEdit
+        this.getmessage()
+      })
+        .catch(err => {
+          this.$message({
+            message: res,
+            type: 'info'
+          })
+        })
+    },
+    //回复留言
+    replys () {
+      this.replyVisible = true
     }
   },
   created () {

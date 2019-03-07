@@ -1,11 +1,43 @@
 import axios from 'axios'
-
+import { Loading } from 'element-ui'
+let loading
+function startLoading () {
+    loading = Loading.service({
+        lock: true,
+        text: '加载中……',
+        background: 'rgba(0, 0, 0, 0.7)'
+    })
+}
+function endLoading () {
+    loading.close()
+}
 const $request = axios.create({
     baseURL: '/api',
     timeout: 15000
 })
+
+
+let needLoadingRequestCount = 0
+
+function showFullScreenLoading () {
+    if (needLoadingRequestCount === 0) {
+        startLoading()
+    }
+    needLoadingRequestCount++
+}
+
+function tryHideFullScreenLoading () {
+    if (needLoadingRequestCount <= 0) return
+    needLoadingRequestCount--
+    if (needLoadingRequestCount === 0) {
+        endLoading()
+    }
+}
 // 添加请求拦截器
-$request.interceptors.request.use(function (config) {
+
+// 添加请求拦截器
+axios.interceptors.request.use(function (config) {
+    showFullScreenLoading()
     // 在发送请求之前做些什么
     return config;
 }, function (error) {
@@ -13,9 +45,11 @@ $request.interceptors.request.use(function (config) {
     return Promise.reject(error);
 });
 
+
 // 添加响应拦截器
 // respone拦截器
 axios.interceptors.response.use(response => {
+    tryHideFullScreenLoading()
     return new Promise((resolve, reject) => {
         const { code, data } = response.data
         switch (code) {
@@ -59,4 +93,5 @@ axios.interceptors.response.use(response => {
         return Promise.reject(error)
     }
 )
+
 export default axios
