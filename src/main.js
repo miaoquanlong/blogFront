@@ -8,8 +8,7 @@ import store from "./store";
 import Cookies from 'js-cookie';
 import * as filters from "./filter"; // 全局过滤器
 import { momentTime } from "@/filter";
-
-
+import * as _ from "lodash";
 import "./assets/css/index.scss"; // css重置。
 
 Vue.use(ElementUI)

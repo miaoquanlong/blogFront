@@ -1,20 +1,14 @@
 <template>
   <div>
-    <el-dialog title="收货地址" :visible.sync="replyView" :show="show" width="60%" @close="$emit('update:show',false)">
-      <el-form :model="form">
-        <el-form-item label="活动名称" :label-width="formLabelWidth">
-          <el-input v-model="form.name" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="活动区域" :label-width="formLabelWidth">
-          <el-select v-model="form.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
+    <el-dialog :title="replyTitle" :visible.sync="replyView" :show="show" width="60%" @close="$emit('update:show',false)">
+      <el-form :model="form" label-width="100px">
+        <el-form-item label="回复内容:">
+          <el-input type="textarea" v-model="replycontent" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button @click="close">取 消</el-button>
+        <el-button type="primary" @click="replymessage">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -30,10 +24,20 @@ export default {
       type: Boolean,
       default: false
     },
+    messageName: {
+      type: String,
+      default: false
+    }
   },
   data () {
     return {
       replyView: this.show,
+      replyTitle: '',
+      replycontent: '',
+      form: {
+        name: '',
+        region: ''
+      }
 
     };
   },
@@ -44,7 +48,33 @@ export default {
 
 
 
-  methods: {},
+  methods: {
+    //回复人用户名，回复内容，回复人ID 回复时间(服务端获取当前时间)
+    replymessage () {
+      this.$request.post('/api/reply', {
+        replyname: this.$Cookies.get('name'),
+        replycontent: this.replycontent,
+        replyID: this.$Cookies.get('Uid')
+      }).then(res => {
+        this.$message({
+          message: '回复成功',
+          type: 'success'
+        })
+      }).catch(err => {
+        this.$message({
+          message: '回复失败',
+          type: 'info '
+        })
+      })
+      this.$emit('update:show', false)
+    },
+    //取消回复
+    close () {
+      this.replycontent = ''
+      this.$emit('update:show', false)
+    }
+
+  },
   watch: {
     show: {
       immediate: true,
@@ -53,6 +83,7 @@ export default {
 
         }
         this.replyView = this.show;
+        this.replyTitle = '回复' + `${this.messageName}` + ':'
       }
     }
   },

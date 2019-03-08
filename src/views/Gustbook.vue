@@ -42,14 +42,20 @@
             </el-form-item>
           </el-form>
 
-          <el-button type="primary" size="mini" icon="el-icon-check" @click="replys" v-if="item.userID  == $Cookies.get('Uid')">回复</el-button>
+          <el-timeline>
+            <el-timeline-item v-for="(activity, index) in activities2" :key="index" :icon="activity.icon" :type="activity.type" :color="activity.color" :size="activity.size" :timestamp="activity.timestamp">
+              {{activity.content}}
+            </el-timeline-item>
+          </el-timeline>
+
+          <el-button type="primary" size="mini" icon="el-icon-check" @click="replys(item.messageName)" v-if="item.userID  == $Cookies.get('Uid')">回复</el-button>
           <el-button type="primary" size="mini" icon="el-icon-edit" @click="editemessage(item.userID,item.ID,item)" v-if="!item.canEdit&&item.userID  == $Cookies.get('Uid')">修改</el-button>
           <el-button type="primary" size="mini" icon="el-icon-edit" @click="ensuremessage(item.userID,item.ID,item)" v-if="item.canEdit&&item.userID  == $Cookies.get('Uid')">确认修改</el-button>
           <el-button type="danger" size="mini" icon="el-icon-delete" @click="deletemessage(item.userID,item.ID)" v-if="item.userID  == $Cookies.get('Uid')">删除</el-button>
         </el-card>
       </el-timeline-item>
     </el-timeline>
-    <reply :show.sync=replyVisible></reply>
+    <reply :show.sync="replyVisible" :messageName="messageNames"></reply>
   </div>
 </template>
 
@@ -64,6 +70,25 @@ export default {
         name: '',
         text: ''
       },
+      activities2: [{
+        content: '支持使用图标',
+        timestamp: '2018-04-12 20:46',
+        size: 'large',
+        type: 'primary',
+        icon: 'el-icon-more'
+      }, {
+        content: '支持自定义颜色',
+        timestamp: '2018-04-03 20:46',
+        color: '#0bbd87'
+      }, {
+        content: '支持自定义尺寸',
+        timestamp: '2018-04-03 20:46',
+        size: 'large'
+      }, {
+        content: '默认样式的节点',
+        timestamp: '2018-04-03 20:46'
+      }],
+      messageNames: '',
       replyVisible: false,
       messages: [],
       placeholder: `${this.$Cookies.get('name')},` + '留下您的精彩言论吧~~',
@@ -101,7 +126,35 @@ export default {
     //获取留言
     getmessage () {
       this.$request.get('/api/getmessage').then(res => {
-        this.messages = res
+        // this.messages = res
+        let arr = []
+
+        res.forEach(item => {
+          if (item.userID && item.replyID) {
+            if (item.userID == item.replyID) {
+              arr.push({
+                ID: item.ID,
+                canEdit: item.canEdit,
+                content: item.content,
+                dataTime: item.dataTime,
+                messageName: item.messageName,
+                replyItem: [
+                  {
+                    replyID: item.replyID,
+                    replyTime: item.replyTime,
+                    replycontent: item.replycontent,
+                    replyname: item.replyname,
+                    userID: item.userID,
+                  }
+                ]
+              })
+            }
+          }
+        });
+        console.log(arr);
+        console.log(res);
+
+
       })
 
     },
@@ -147,7 +200,8 @@ export default {
         })
     },
     //回复留言
-    replys () {
+    replys (name) {
+      this.messageNames = name
       this.replyVisible = true
     }
   },
