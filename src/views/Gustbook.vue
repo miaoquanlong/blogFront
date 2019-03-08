@@ -42,9 +42,9 @@
             </el-form-item>
           </el-form>
 
-          <el-timeline>
-            <el-timeline-item v-for="(activity, index) in activities2" :key="index" :icon="activity.icon" :type="activity.type" :color="activity.color" :size="activity.size" :timestamp="activity.timestamp">
-              {{activity.content}}
+          <el-timeline v-if="item.children">
+            <el-timeline-item v-for="(activity, index) in item.children" :key="index" :icon="activity.icon" :type="activity.type" :color="activity.color" :size="activity.size" :timestamp="activity.replyTime|momentTime">
+              {{activity.replycontent}}
             </el-timeline-item>
           </el-timeline>
 
@@ -126,35 +126,32 @@ export default {
     //获取留言
     getmessage () {
       this.$request.get('/api/getmessage').then(res => {
-        // this.messages = res
-        let arr = []
-
+        var result = []
         res.forEach(item => {
-          if (item.userID && item.replyID) {
-            if (item.userID == item.replyID) {
-              arr.push({
-                ID: item.ID,
-                canEdit: item.canEdit,
-                content: item.content,
-                dataTime: item.dataTime,
-                messageName: item.messageName,
-                replyItem: [
-                  {
-                    replyID: item.replyID,
-                    replyTime: item.replyTime,
-                    replycontent: item.replycontent,
-                    replyname: item.replyname,
-                    userID: item.userID,
-                  }
-                ]
-              })
-            }
+          if (result.some(itemC => itemC.userID === item.userID)) {
+            let currentItem = result.find(itemC => itemC.userID === item.userID)
+            currentItem.children.push(item)
+          } else {
+            result.push({
+              "messageName": item.messageName,
+              "ID": item.ID,
+              "dataTime": item.dataTime,
+              "content": item.content,
+              "userID": item.userID,
+              "canEdit": item.canEdit,
+              children: [
+                {
+                  "replyname": item.replyname,
+                  "replycontent": item.replycontent,
+                  "replyID": item.replyID,
+                  "replyTime": item.replyTime
+                }
+              ]
+            })
           }
-        });
-        console.log(arr);
-        console.log(res);
-
-
+        })
+        console.log(result);
+        this.messages = result
       })
 
     },

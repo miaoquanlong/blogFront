@@ -46,7 +46,8 @@ export default {
 
   computed: {},
 
-
+  created () {
+  },
 
   methods: {
     //回复人用户名，回复内容，回复人ID 回复时间(服务端获取当前时间)
