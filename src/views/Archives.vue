@@ -1,119 +1,80 @@
 <template>
   <div>
-    <el-card :body-style="{ padding: '0px',}" class="comment">
+    <!-- <el-card :body-style="{ padding: '0px',}" class="comment">
       <el-form label-width="100px">
         <div style="padding: 14px;">
           <el-row>
-            <h3>Archives</h3>
+            <h3>文章</h3>
           </el-row>
           <el-row>
-            <el-collapse v-model="activeNames">
-              <el-collapse-item title="一致性 Consistency" name="1">
-                <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-                <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-              </el-collapse-item>
-              <el-collapse-item title="反馈 Feedback" name="2">
-                <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
-                <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
-              </el-collapse-item>
-              <el-collapse-item title="效率 Efficiency" name="3">
-                <div>简化流程：设计简洁直观的操作流程；</div>
-                <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-                <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
-              </el-collapse-item>
-              <el-collapse-item title="可控 Controllability" name="4">
-                <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
-                <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
+            <el-collapse v-for="(item,index) in activeNames " :key="index">
+              <el-collapse-item :title="item.title" :name="item.ID">
+                <div>{{item.content}}</div>
               </el-collapse-item>
             </el-collapse>
-          </el-row>
-          <div class="bottom clearfix">
-            <time class="time">{{ currentDate }}</time>
-            <el-button type="text" class="button">点我~~点我</el-button>
-          </div>
-        </div>
-      </el-form>
-    </el-card>
-    <el-card :body-style="{ padding: '0px',}" class="comment">
-      <el-form label-width="100px">
-        <div style="padding: 14px;">
-          <el-row>
-            <h3>Archives</h3>
-          </el-row>
-          <el-row>
-            <el-collapse v-model="activeNames">
-              <el-collapse-item title="一致性 Consistency" name="1">
-                <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-                <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-              </el-collapse-item>
-              <el-collapse-item title="反馈 Feedback" name="2">
-                <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
-                <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
-              </el-collapse-item>
-              <el-collapse-item title="效率 Efficiency" name="3">
-                <div>简化流程：设计简洁直观的操作流程；</div>
-                <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-                <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
-              </el-collapse-item>
-              <el-collapse-item title="可控 Controllability" name="4">
-                <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
-                <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
-              </el-collapse-item>
-            </el-collapse>
-          </el-row>
-          <div class="bottom clearfix">
-            <time class="time">{{ currentDate }}</time>
-            <el-button type="text" class="button">点我~~点我</el-button>
-          </div>
-        </div>
-      </el-form>
-    </el-card>
 
-    <el-card :body-style="{ padding: '0px',}" class="comment">
-      <el-form label-width="100px">
-        <div style="padding: 14px;">
-          <el-row>
-            <h3>Archives</h3>
-          </el-row>
-          <el-row>
-            <el-collapse v-model="activeNames">
-              <el-collapse-item title="一致性 Consistency" name="1">
-                <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-                <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-              </el-collapse-item>
-              <el-collapse-item title="反馈 Feedback" name="2">
-                <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
-                <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
-              </el-collapse-item>
-              <el-collapse-item title="效率 Efficiency" name="3">
-                <div>简化流程：设计简洁直观的操作流程；</div>
-                <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-                <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
-              </el-collapse-item>
-              <el-collapse-item title="可控 Controllability" name="4">
-                <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
-                <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
-              </el-collapse-item>
-            </el-collapse>
           </el-row>
           <div class="bottom clearfix">
             <time class="time">{{ currentDate }}</time>
-            <el-button type="text" class="button">点我~~点我</el-button>
           </div>
         </div>
       </el-form>
-    </el-card>
+    </el-card> -->
+
+    <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData">
+      <a-list-item slot="renderItem" slot-scope="item, index" key="item.title">
+        <template slot="actions">
+          <!-- <span :key="type">
+            <a-icon :type="type" style="margin-right: 8px" @click="startclick(type)" />
+            {{text}}
+          </span> -->
+          <span key="star-o">
+            <a-icon type="star-o" style="margin-right: 8px" @click="startclick()" />
+            {{item.start}}
+          </span>
+          <span key="like-o">
+            <a-icon type="like-o" style="margin-right: 8px" @click="likeclick()" />
+            {{item.endorsed}}
+          </span>
+          <span key="message">
+            <a-icon type="message" style="margin-right: 8px" @click="messageclick()" />
+            {{30}}
+          </span>
+        </template>
+        <img slot="extra" width="272" alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />
+        <a-list-item-meta :description="item.description">
+          <a slot="title" :href="item.href">{{item.title}}</a>
+          <!-- <a-avatar slot="avatar" :src="item.originalUrl" style="width:100%;height:100%" /> -->
+          <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+        </a-list-item-meta>
+        {{item.content}}
+      </a-list-item>
+    </a-list>
+
   </div>
 </template>
 
 <script>
+const listData = []
 
 export default {
   name: '',
   data () {
     return {
       currentDate: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate() + '  ' + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds(),
-      activeNames: ['1']
+      activeNames: [],
+      pagination: {
+        onChange: (page) => {
+          console.log(page);
+        },
+        pageSize: 5,
+      },
+      actions: [
+        { type: 'star-o', text: '156', },
+        { type: 'like-o', text: '156' },
+        { type: 'message', text: '2' },
+      ],
+      listData
     };
   },
 
@@ -123,8 +84,28 @@ export default {
 
 
 
-  methods: {},
+  methods: {
+    getJuejin () {
+      this.$request.get('/api/artic/juejin').then(res => {
+        console.log(res);
+        this.listData = res
+      })
+    },
+    startclick (val) {
+      console.log(1);
+    },
+    likeclick (val) {
+      console.log(2);
 
+    },
+    messageclick (val) {
+      console.log(3);
+
+    }
+  },
+  created () {
+    this.getJuejin()
+  }
 
 }
 

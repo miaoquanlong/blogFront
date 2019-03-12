@@ -11,8 +11,11 @@ import { momentTime } from "@/filter";
 import * as _ from "lodash";
 import "./assets/css/index.scss"; // css重置。
 
-Vue.use(ElementUI)
+import Antd from 'ant-design-vue'//使用antd
+import 'ant-design-vue/dist/antd.css'//antd的样式
 
+Vue.use(ElementUI)
+Vue.use(Antd)
 Vue.prototype.$request = axios
 Vue.prototype.$Cookies = Cookies
 Vue.prototype.momentTime = momentTime;

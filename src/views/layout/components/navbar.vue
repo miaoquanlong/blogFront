@@ -13,7 +13,7 @@ export default {
   props: [''],
   data () {
     return {
-      isCollapse: true,
+      isCollapse: false,
       route: [],
       activeIndex: "1"
     };

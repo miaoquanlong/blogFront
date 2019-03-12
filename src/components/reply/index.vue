@@ -27,6 +27,10 @@ export default {
     messageName: {
       type: String,
       default: false
+    },
+    messageID: {
+      type: String | Number,
+      default: false
     }
   },
   data () {
@@ -42,9 +46,12 @@ export default {
     };
   },
 
-  components: {},
+  components: {
+  },
 
-  computed: {},
+  computed: {
+
+  },
 
   created () {
   },
@@ -55,6 +62,7 @@ export default {
       this.$request.post('/api/reply', {
         replyname: this.$Cookies.get('name'),
         replycontent: this.replycontent,
+        messageID: this.messageID,
         replyID: this.$Cookies.get('Uid')
       }).then(res => {
         this.$message({
@@ -68,6 +76,8 @@ export default {
         })
       })
       this.$emit('update:show', false)
+      this.$emit('reload', true)
+
     },
     //取消回复
     close () {

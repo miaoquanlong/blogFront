@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-col>
+      <el-col :lg="24" :md="12">
         <el-card :body-style="{ padding: '0px',}">
           <div style="padding: 14px;">
             <div style="text-align: -webkit-center;">
@@ -12,7 +12,7 @@
             </div>
             <div class="bottom clearfix">
               <time class="time">{{ currentDate }}</time>
-              <el-button type="text" class="button">点我~~点我</el-button>
+              <!-- <el-button type="text" class="button">点我~~点我</el-button> -->
             </div>
           </div>
         </el-card>
@@ -44,18 +44,18 @@
 
           <el-timeline v-if="item.children">
             <el-timeline-item v-for="(activity, index) in item.children" :key="index" :icon="activity.icon" :type="activity.type" :color="activity.color" :size="activity.size" :timestamp="activity.replyTime|momentTime">
-              {{activity.replycontent}}
+              {{activity.replyname}}:{{activity.replycontent}}
             </el-timeline-item>
           </el-timeline>
 
-          <el-button type="primary" size="mini" icon="el-icon-check" @click="replys(item.messageName)" v-if="item.userID  == $Cookies.get('Uid')">回复</el-button>
+          <el-button type="primary" size="mini" icon="el-icon-check" @click="replys(item.messageName,item)">回复</el-button>
           <el-button type="primary" size="mini" icon="el-icon-edit" @click="editemessage(item.userID,item.ID,item)" v-if="!item.canEdit&&item.userID  == $Cookies.get('Uid')">修改</el-button>
           <el-button type="primary" size="mini" icon="el-icon-edit" @click="ensuremessage(item.userID,item.ID,item)" v-if="item.canEdit&&item.userID  == $Cookies.get('Uid')">确认修改</el-button>
           <el-button type="danger" size="mini" icon="el-icon-delete" @click="deletemessage(item.userID,item.ID)" v-if="item.userID  == $Cookies.get('Uid')">删除</el-button>
         </el-card>
       </el-timeline-item>
     </el-timeline>
-    <reply :show.sync="replyVisible" :messageName="messageNames"></reply>
+    <reply :show.sync="replyVisible" :messageName="messageNames" :messageID="messageID" @reload="reload"></reply>
   </div>
 </template>
 
@@ -70,25 +70,8 @@ export default {
         name: '',
         text: ''
       },
-      activities2: [{
-        content: '支持使用图标',
-        timestamp: '2018-04-12 20:46',
-        size: 'large',
-        type: 'primary',
-        icon: 'el-icon-more'
-      }, {
-        content: '支持自定义颜色',
-        timestamp: '2018-04-03 20:46',
-        color: '#0bbd87'
-      }, {
-        content: '支持自定义尺寸',
-        timestamp: '2018-04-03 20:46',
-        size: 'large'
-      }, {
-        content: '默认样式的节点',
-        timestamp: '2018-04-03 20:46'
-      }],
       messageNames: '',
+      messageID: '',
       replyVisible: false,
       messages: [],
       placeholder: `${this.$Cookies.get('name')},` + '留下您的精彩言论吧~~',
@@ -123,37 +106,41 @@ export default {
         })
       })
     },
-    //获取留言
     getmessage () {
-      this.$request.get('/api/getmessage').then(res => {
-        var result = []
-        res.forEach(item => {
-          if (result.some(itemC => itemC.userID === item.userID)) {
-            let currentItem = result.find(itemC => itemC.userID === item.userID)
-            currentItem.children.push(item)
-          } else {
-            result.push({
-              "messageName": item.messageName,
-              "ID": item.ID,
-              "dataTime": item.dataTime,
-              "content": item.content,
-              "userID": item.userID,
-              "canEdit": item.canEdit,
-              children: [
-                {
-                  "replyname": item.replyname,
-                  "replycontent": item.replycontent,
-                  "replyID": item.replyID,
-                  "replyTime": item.replyTime
-                }
-              ]
-            })
-          }
-        })
-        console.log(result);
-        this.messages = result
-      })
+      return this.$request.get('/api/getmessage')
+    },
+    getreply () {
+      return this.$request.get('/api/getreply');
+    },
 
+    //获取留言
+    getmessages () {
+      let that = this
+      this.$request.all([this.getmessage(), this.getreply()])
+        .then(this.$request.spread(function (acc, pers) {
+          acc = acc.map(itemC => {
+            return {
+              ID: itemC.ID,
+              canEdit: itemC.canEdit,
+              content: itemC.content,
+              dataTime: itemC.dataTime,
+              messageName: itemC.messageName,
+              userID: itemC.userID,
+              children: []
+            }
+          })
+          pers.forEach(item => {
+            if (item.messageID === _.find(acc, { ID: item.messageID }).ID) {
+              _.find(acc, { ID: item.messageID }).children.push({
+                "replyname": item.replyname,
+                "replycontent": item.replycontent,
+                "messageID": item.messageID,
+                "replyTime": item.replyTime
+              })
+            }
+          })
+          that.messages = acc
+        }));
     },
     //清空输入的内容
     clear () {
@@ -197,13 +184,18 @@ export default {
         })
     },
     //回复留言
-    replys (name) {
+    replys (name, item) {
       this.messageNames = name
+      this.messageID = item.ID
       this.replyVisible = true
+    },
+    //回复过后重载数据
+    reload () {
+      this.getmessages()
     }
   },
   created () {
-    this.getmessage()
+    this.getmessages()
   }
 
 

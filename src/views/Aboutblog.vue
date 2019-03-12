@@ -8,11 +8,11 @@
               <el-row>
                 <h3>About blog</h3>
               </el-row>
-              <el-row>
+              <!-- <el-row>
                 <el-form-item>
                   <img src="http://werkstette.dk/wp-content/uploads/2015/09/Entertainment_Weekly_Photographer_Marc_Hom_British_Actor_Charlie_Hunnam_as_King_Arthur_Retouch_Werkstette10-770x841.jpg">
                 </el-form-item>
-              </el-row>
+              </el-row> -->
               <el-row>
                 <el-col>
                   <el-form-item label="学校:">
@@ -39,6 +39,14 @@
                 <el-col>
                   <el-form-item label="Email:">
                     {{item.email}}
+                  </el-form-item>
+                </el-col>
+              </el-row>
+
+              <el-row>
+                <el-col>
+                  <el-form-item label="感谢:">
+                    {{item.thanks}}
                   </el-form-item>
                 </el-col>
               </el-row>
