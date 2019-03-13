@@ -22,42 +22,42 @@ export default new Router({
     routes: [
         {
             path: '/',
-            name: 'Home',
+            name: '首页',
             component: dashboard,
         },
-        {
-            path: '/Codebox',
-            name: 'Codebox',
-            component: Codebox,
-        },
+        // {
+        //     path: '/Codebox',
+        //     name: 'Codebox',
+        //     component: Codebox,
+        // },
         {
             path: '/Aboutme',
-            name: 'Aboutme',
+            name: '关于我',
             component: Aboutme,
         },
         {
             path: '/Aboutblog',
-            name: 'About Blog',
+            name: '关于博客',
             component: Aboutblog,
         },
         {
             path: '/Gustbook',
-            name: 'Gustbook',
+            name: '留言',
             component: Gustbook,
         },
-        {
-            path: '/Donate',
-            name: 'Donate',
-            component: Donate,
-        },
-        {
-            path: '/Archives',
-            name: 'Archives',
-            component: Archives,
-        },
+        // {
+        //     path: '/Donate',
+        //     name: 'Donate',
+        //     component: Donate,
+        // },
+        // {
+        //     path: '/Archives',
+        //     name: '文章列表',
+        //     component: Archives,
+        // },
         {
             path: '/login',
-            name: 'login',
+            name: '登陆',
             component: login,
         },
         // {

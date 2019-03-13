@@ -1,72 +1,63 @@
 <template>
   <div>
     <el-row v-for="(item,index) in aboutArtic" :key="index">
-      <el-col>
-        <el-card :body-style="{ padding: '0px',}">
-          <el-form label-width="100px">
-            <div style="padding: 14px;">
-              <el-row>
-                <h3>About blog</h3>
-              </el-row>
-              <!-- <el-row>
-                <el-form-item>
-                  <img src="http://werkstette.dk/wp-content/uploads/2015/09/Entertainment_Weekly_Photographer_Marc_Hom_British_Actor_Charlie_Hunnam_as_King_Arthur_Retouch_Werkstette10-770x841.jpg">
+      <a-card title="关于博客" :bordered="false">
+        <a-button type="primary" slot="extra">点我~~点我</a-button>
+        <el-form label-width="100px">
+          <div style="padding: 14px;">
+            <el-row>
+              <el-col>
+                <el-form-item label="学校:">
+                  {{item.school}}
                 </el-form-item>
-              </el-row> -->
-              <el-row>
-                <el-col>
-                  <el-form-item label="学校:">
-                    {{item.school}}
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col>
-                  <el-form-item label="QQ:">
-                    {{item.qq}}
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col>
-                  <el-form-item label="喜好:">
-                    {{item.Like}}
-                  </el-form-item>
-                </el-col>
-              </el-row>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col>
+                <el-form-item label="QQ:">
+                  {{item.qq}}
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col>
+                <el-form-item label="喜好:">
+                  {{item.Like}}
+                </el-form-item>
+              </el-col>
+            </el-row>
 
-              <el-row>
-                <el-col>
-                  <el-form-item label="Email:">
-                    {{item.email}}
-                  </el-form-item>
-                </el-col>
-              </el-row>
+            <el-row>
+              <el-col>
+                <el-form-item label="Email:">
+                  {{item.email}}
+                </el-form-item>
+              </el-col>
+            </el-row>
 
-              <el-row>
-                <el-col>
-                  <el-form-item label="感谢:">
-                    {{item.thanks}}
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col>
-                  <el-form-item label="微博:">
-                    {{item.signAddress}}
-                  </el-form-item>
-                </el-col>
-              </el-row>
+            <el-row>
+              <el-col>
+                <el-form-item label="感谢:">
+                  {{item.thanks}}
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col>
+                <el-form-item label="微博:">
+                  {{item.signAddress}}
+                </el-form-item>
+              </el-col>
+            </el-row>
 
-              <div class="bottom clearfix">
-                <time class="time">{{ currentDate }}</time>
-                <el-button type="text" class="button">点我~~点我</el-button>
-              </div>
+            <div class="bottom clearfix">
+              <!-- <time class="time">{{ currentDate }}</time> -->
+              <!-- <el-button type="text" class="button">点我~~点我</el-button> -->
             </div>
+          </div>
 
-          </el-form>
-        </el-card>
-      </el-col>
+        </el-form>
+      </a-card>
     </el-row>
   </div>
 </template>

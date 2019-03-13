@@ -55,7 +55,6 @@
 </template>
 
 <script>
-const listData = []
 
 export default {
   name: '',
@@ -74,7 +73,7 @@ export default {
         { type: 'like-o', text: '156' },
         { type: 'message', text: '2' },
       ],
-      listData
+      listData: []
     };
   },
 
@@ -87,7 +86,6 @@ export default {
   methods: {
     getJuejin () {
       this.$request.get('/api/artic/juejin').then(res => {
-        console.log(res);
         this.listData = res
       })
     },
@@ -110,5 +108,5 @@ export default {
 }
 
 </script>
-<style lang='' scoped>
+<style lang='scss' scoped>
 </style>

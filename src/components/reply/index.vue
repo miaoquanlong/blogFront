@@ -65,15 +65,9 @@ export default {
         messageID: this.messageID,
         replyID: this.$Cookies.get('Uid')
       }).then(res => {
-        this.$message({
-          message: '回复成功',
-          type: 'success'
-        })
+        this.$message.success('回复成功');
       }).catch(err => {
-        this.$message({
-          message: '回复失败',
-          type: 'info '
-        })
+        this.$message.error(err);
       })
       this.$emit('update:show', false)
       this.$emit('reload', true)

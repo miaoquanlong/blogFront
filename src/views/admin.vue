@@ -8,19 +8,24 @@
               <h3 class="title">Blog login Page</h3>
             </div>
             <el-form-item prop="username">
-              <el-input class="inputstayle" name="username" clearable type="text" v-model="loginForm.username" placeholder="请输入正确的用户名!" />
+              <!-- <el-input class="inputstayle" name="username" clearable type="text" v-model="loginForm.username" placeholder="请输入正确的用户名!" /> -->
+              <a-input clearable type="text" class="inputstayle" v-model="loginForm.username" placeholder="请输入正确的用户名!" />
             </el-form-item>
             <el-form-item prop="password">
               <span>
               </span>
-              <el-input class="inputstayle" name="password" clearable :type="passwordType" @keyup.enter.native="handleLogin" v-model="loginForm.password" placeholder="请输入密码!" />
+              <!-- <el-input class="inputstayle" name="password" clearable :type="passwordType" @keyup.enter.native="handleLogin" v-model="loginForm.password" placeholder="请输入密码!" /> -->
+              <a-input class="inputstayle" name="password" clearable :type="passwordType" @keyup.enter.native="handleLogin" v-model="loginForm.password" placeholder="请输入密码!" />
               <span @click="showPwd">
               </span>
             </el-form-item>
-            <el-button size="small" type="primary" @click.native.prevent="handleLogin">登录
-            </el-button>
-            <el-button size="small" type="primary" @click.native.prevent="registered">注册
-            </el-button>
+            <!-- <el-button size="small" type="primary" @click.native.prevent="handleLogin">登录 -->
+            <!-- </el-button> -->
+            <a-button type="primary" @click.native.prevent="handleLogin">登录</a-button>
+            <!-- <el-button size="small" type="primary" @click.native.prevent="registered">注册
+            </el-button> -->
+            <a-button type="primary" @click.native.prevent="registered">注册</a-button>
+
           </el-form>
         </div>
       </el-card>
@@ -82,6 +87,7 @@ export default {
     },
     //登陆
     handleLogin () {
+      var that = this
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           let para = {
@@ -97,10 +103,8 @@ export default {
             }).catch(() => {
             })
           }).catch((err) => {
-            this.$message({
-              message: err,
-              type: 'warning'
-            })
+            this.$message.error(err);
+
           })
         } else {
           console.log('error submit!!')
@@ -120,15 +124,10 @@ export default {
         username: this.loginForm.username,
         password: this.loginForm.password
       }).then(res => {
-        this.$message({
-          message: '注册成功',
-          type: 'success'
-        })
+        this.$message.success('注册成功');
+
       }).catch(err => {
-        this.$message({
-          message: '注册失败',
-          type: 'info'
-        })
+        this.$message.error(err);
       })
     }
   },

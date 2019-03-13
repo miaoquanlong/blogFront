@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row>
+    <!-- <el-row>
       <el-col :lg="24" :md="12">
         <el-card :body-style="{ padding: '0px',}">
           <div style="padding: 14px;">
@@ -12,14 +12,13 @@
             </div>
             <div class="bottom clearfix">
               <time class="time">{{ currentDate }}</time>
-              <!-- <el-button type="text" class="button">点我~~点我</el-button> -->
             </div>
           </div>
         </el-card>
       </el-col>
-    </el-row>
+    </el-row> -->
     <!-- 发布留言 -->
-    <el-row>
+    <!-- <el-row style="margin-top:20px">
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="留言板:">
           <el-input type="textarea" v-model="form.text" :placeholder="placeholder"></el-input>
@@ -29,9 +28,9 @@
           <el-button @click="clear">三思一下~~</el-button>
         </el-form-item>
       </el-form>
-    </el-row>
+    </el-row> -->
     <!-- 查看留言 -->
-    <el-timeline>
+    <!-- <el-timeline>
       <el-timeline-item :timestamp="item.dataTime|momentTime" placement="top" v-for="item in messages">
         <el-card>
           <h4>{{item.messageName}}说:</h4>
@@ -53,9 +52,75 @@
           <el-button type="primary" size="mini" icon="el-icon-edit" @click="ensuremessage(item.userID,item.ID,item)" v-if="item.canEdit&&item.userID  == $Cookies.get('Uid')">确认修改</el-button>
           <el-button type="danger" size="mini" icon="el-icon-delete" @click="deletemessage(item.userID,item.ID)" v-if="item.userID  == $Cookies.get('Uid')">删除</el-button>
         </el-card>
-      </el-timeline-item>
-    </el-timeline>
+      </el-timeline-item> -->
+    <!-- </el-timeline> -->
+
+    <div slot="content">
+      <a-textarea :rows="4" v-model="form.text" :placeholder="placeholder"></a-textarea>
+      <span style="margin:15px">
+        <a-button htmlType="submit" :loading="submitting" @click="onSubmit" type="primary">
+          立即评论
+        </a-button>
+      </span>
+      <span>
+        <a-button @click="clear">三思一下~~</a-button>
+      </span>
+    </div>
+
+    <a-list class="comment-list" :header="`${messages.length} 条评论`" itemLayout="horizontal" :dataSource="messages">
+      <a-list-item slot="renderItem" slot-scope="item, index">
+        <a-comment :author="item.author" :avatar="item.avatar">
+          <template slot="actions">
+            <span key="star-o">
+              <a-icon type="star-o" style="margin-right: 8px" @click="startclick()" />
+              {{item.start}}
+            </span>
+            <span key="like-o">
+              <a-icon type="like-o" style="margin-right: 8px" @click="likeclick()" />
+              {{item.endorsed}}
+            </span>
+            <span key="message">
+              <a-icon type="message" style="margin-right: 8px" @click="replys(item.messageName,item)" />
+              {{30}}
+            </span>
+            <span>
+              <a-button type="primary" icon="bulb" :size="size" @click="replys(item.messageName,item)" value=""> 回复</a-button>
+            </span>
+            <span>
+              <a-button type="primary" icon="edit" :size="size" @click="editemessage(item.userID,item.ID,item)" v-if="!item.canEdit&&item.userID  == $Cookies.get('Uid')">修改</a-button>
+            </span>
+            <span>
+              <a-button type="primary" icon="safety" :size="size" @click="ensuremessage(item.userID,item.ID,item)" v-if="item.canEdit&&item.userID  == $Cookies.get('Uid')">确认修改</a-button>
+            </span>
+            <span>
+              <a-button type="primary" icon="delete" :size="size" @click="deletemessage(item.userID,item.ID)" v-if="item.userID  == $Cookies.get('Uid')">删除</a-button>
+            </span>
+          </template>
+
+          <p slot="content">{{item.content}}</p>
+          <a-input v-moda="item.content" v-if="item.canEdit"></a-input>
+          <a-comment v-for="(activity, index) in item.children">
+            <a slot="author">{{activity.replyname}}:</a>
+            <template slot="actions">
+              <span key="star-o">
+                <a-icon type="star-o" style="margin-right: 8px" @click="startclick()" />
+                {{item.start}}
+              </span>
+              <span key="like-o">
+                <a-icon type="like-o" style="margin-right: 8px" @click="likeclick()" />
+                {{item.endorsed}}
+              </span>
+            </template>
+            <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="Han Solo" />
+            <p slot="content">{{activity.replycontent}}</p>
+          </a-comment>
+          </a-tooltip>
+        </a-comment>
+      </a-list-item>
+    </a-list>
+
     <reply :show.sync="replyVisible" :messageName="messageNames" :messageID="messageID" @reload="reload"></reply>
+
   </div>
 </template>
 
@@ -70,13 +135,16 @@ export default {
         name: '',
         text: ''
       },
+      size: 'small',
+      submitting: false,
       messageNames: '',
       messageID: '',
       replyVisible: false,
       messages: [],
       placeholder: `${this.$Cookies.get('name')},` + '留下您的精彩言论吧~~',
-      currentDate: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate() + '  ' + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()
-    };
+      //   currentDate: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate() + '  ' + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()
+    }
+
   },
 
   components: { reply },
@@ -86,6 +154,7 @@ export default {
 
 
   methods: {
+
     //留言
     onSubmit () {
       this.$request.post('/api/message', {
@@ -93,17 +162,11 @@ export default {
         content: this.form.text,
         userID: this.$Cookies.get('Uid'),
       }).then(res => {
-        this.$message({
-          message: res,
-          type: 'success'
-        })
-        this.getmessage()
+        this.$message.success(res);
+        this.getmessages()
         this.clear()
       }).catch(err => {
-        this.$message({
-          message: err,
-          type: 'info'
-        })
+        this.$message.error(err);
       })
     },
     getmessage () {
@@ -130,16 +193,18 @@ export default {
             }
           })
           pers.forEach(item => {
-            if (item.messageID === _.find(acc, { ID: item.messageID }).ID) {
-              _.find(acc, { ID: item.messageID }).children.push({
-                "replyname": item.replyname,
-                "replycontent": item.replycontent,
-                "messageID": item.messageID,
-                "replyTime": item.replyTime
-              })
+            if (item.messageID && _.find(acc, { ID: item.messageID })) {
+              if (item.messageID === _.find(acc, { ID: item.messageID }).ID) {
+                _.find(acc, { ID: item.messageID }).children.push({
+                  "replyname": item.replyname,
+                  "replycontent": item.replycontent,
+                  "messageID": item.messageID,
+                  "replyTime": item.replyTime
+                })
+              }
             }
+            that.messages = acc
           })
-          that.messages = acc
         }));
     },
     //清空输入的内容
@@ -149,16 +214,11 @@ export default {
     //删除评论
     deletemessage (ID, messageID) {
       this.$request.post('/api/deletemessage', { userID: ID, messageID: messageID }).then(res => {
-        this.$message({
-          message: res,
-          type: 'success'
-        })
-        this.getmessage()
+        this.$message.success(res);
+
+        this.getmessages()
       }).catch(err => {
-        this.$message({
-          message: err,
-          type: 'info'
-        })
+        this.$message.error(err);
       })
     },
     //修改评论
@@ -169,18 +229,12 @@ export default {
     ensuremessage (ID, messageID, item) {
       console.log(item);
       this.$request.post('/api/editmessage', { userID: ID, messageID: messageID, content: item.content }).then(res => {
-        this.$message({
-          message: res,
-          type: 'success'
-        })
+        this.$message.success(res);
         item.canEdit = !item.canEdit
-        this.getmessage()
+        this.getmessages()
       })
         .catch(err => {
-          this.$message({
-            message: res,
-            type: 'info'
-          })
+          this.$message.error(err);
         })
     },
     //回复留言
