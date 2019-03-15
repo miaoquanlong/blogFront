@@ -147,7 +147,7 @@ body {
     font-family: "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 14px;
     font-variant: tabular-nums;
-    line-height:7.76 !important;
+    line-height:0 !important;
     color: rgba(0, 0, 0, 0.65);
     background-color: #fff;
 }
@@ -168,4 +168,40 @@ body {
     padding-top: 0.1px;
     margin-top: -0.1px;
     position: fixed;
+}
+.ant-layout-sider-zero-width-trigger {
+    position: fixed !important;
+    top: 12px!important;
+    z-index: 9999999999!important;
+    left:0 ;
+    text-align: center!important;
+    width: 36px!important;
+    height: 42px!important;
+    line-height: 42px!important;
+    background: #001529!important;
+    color: #fff!important;
+    font-size: 18px!important;
+    border-radius: 0 4px 4px 0!important;
+    cursor: pointer!important;
+    -webkit-transition: background 0.3s ease!important;
+    transition: background 0.3s ease!important;
+}
+.ant-comment-nested {
+    margin-left: 0!important;
+}
+
+#live2d-widget {
+    // width: 100%;
+    // height: 100%;
+    // background-color: #262a30;
+    // margin: 0;
+}
+
+#live2dcanvas {
+    border: none !important;
+}
+
+li {
+    cursor: pointer;
+    // margin-bottom: 10px;
 }

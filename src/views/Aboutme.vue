@@ -1,63 +1,63 @@
 <template>
   <div>
-    <el-row>
+    <a-row>
       <a-card title="关于我" v-for="(item,index) in aboutArtic" :key="index">
         <!-- <a href="#" slot="extra"> -->
         <a-button slot="extra" type="primary">点我~~点我</a-button>
         <!-- </a> -->
 
-        <el-form label-width="100px">
+        <a-form label-width="100px">
           <div style="padding: 14px;">
-            <el-row>
-              <el-form-item label="关于我:">
+            <a-row>
+              <a-form-item label="关于我:">
                 {{item.content}}
-              </el-form-item>
-            </el-row>
-            <el-row>
-              <el-col>
-                <el-form-item label="学校:">
+              </a-form-item>
+            </a-row>
+            <a-row>
+              <a-col>
+                <a-form-item label="学校:">
                   {{item.school}}
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col>
-                <el-form-item label="QQ:">
+                </a-form-item>
+              </a-col>
+            </a-row>
+            <a-row>
+              <a-col>
+                <a-form-item label="QQ:">
                   {{item.qq}}
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col>
-                <el-form-item label="喜好:">
+                </a-form-item>
+              </a-col>
+            </a-row>
+            <a-row>
+              <a-col>
+                <a-form-item label="喜好:">
                   {{item.Like}}
-                </el-form-item>
-              </el-col>
-            </el-row>
+                </a-form-item>
+              </a-col>
+            </a-row>
 
-            <el-row>
-              <el-col>
-                <el-form-item label="Email:">
+            <a-row>
+              <a-col>
+                <a-form-item label="Email:">
                   {{item.email}}
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col>
-                <el-form-item label="微博:">
+                </a-form-item>
+              </a-col>
+            </a-row>
+            <a-row>
+              <a-col>
+                <a-form-item label="微博:">
                   {{item.signAddress}}
-                </el-form-item>
-              </el-col>
-            </el-row>
+                </a-form-item>
+              </a-col>
+            </a-row>
             <!-- 
             <div class="bottom clearfix">
               <time class="time">{{ currentDate }}</time>
             </div> -->
           </div>
 
-        </el-form>
+        </a-form>
       </a-card>
-    </el-row>
+    </a-row>
   </div>
 </template>
 

@@ -1,35 +1,28 @@
 <template>
   <div>
-    <el-row>
-      <el-card :body-style="{ padding: '0px',}" class="comment ">
-        <div>
-          <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" class="login" :disabled="Boolean(this.$Cookies.get('name'))">
-            <div>
-              <h3 class="title">Blog login Page</h3>
-            </div>
-            <el-form-item prop="username">
-              <!-- <el-input class="inputstayle" name="username" clearable type="text" v-model="loginForm.username" placeholder="请输入正确的用户名!" /> -->
-              <a-input clearable type="text" class="inputstayle" v-model="loginForm.username" placeholder="请输入正确的用户名!" />
-            </el-form-item>
-            <el-form-item prop="password">
-              <span>
-              </span>
-              <!-- <el-input class="inputstayle" name="password" clearable :type="passwordType" @keyup.enter.native="handleLogin" v-model="loginForm.password" placeholder="请输入密码!" /> -->
-              <a-input class="inputstayle" name="password" clearable :type="passwordType" @keyup.enter.native="handleLogin" v-model="loginForm.password" placeholder="请输入密码!" />
-              <span @click="showPwd">
-              </span>
-            </el-form-item>
-            <!-- <el-button size="small" type="primary" @click.native.prevent="handleLogin">登录 -->
-            <!-- </el-button> -->
-            <a-button type="primary" @click.native.prevent="handleLogin">登录</a-button>
-            <!-- <el-button size="small" type="primary" @click.native.prevent="registered">注册
-            </el-button> -->
-            <a-button type="primary" @click.native.prevent="registered">注册</a-button>
+    <a-card title="Card Title" style="width:50%;margin:55px auto">
+      <a href="#" slot="extra">more</a>
+      <a-form id="components-form-demo-normal-login" class="login-form">
+        <a-form-item>
+          <a-input v-decorator="['userName', { rules: [{ required: true, message: 'Please input your username!' }] }]" placeholder="Username" v-model="loginForm.username">
+            <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
+          </a-input>
+        </a-form-item>
+        <a-form-item>
+          <a-input v-decorator="[ 'password', { rules: [{ required: true, message: 'Please input your Password!' }] }]" type="password" placeholder="Password" v-model="loginForm.password">
+            <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
+          </a-input>
+        </a-form-item>
+        <a-form-item>
+          <!-- <a-checkbox v-decorator="[ 'remember', { valuePropName: 'checked',initialValue: true, }]"> Remember me</a-checkbox> -->
+          <a class="login-form-forgot"> 忘记密码</a>
+          <a-button type="primary" class="login-form-button" @click="handleLogin" :disabled="Boolean(this.$Cookies.get('name'))">登陆</a-button>
+          <a-button type="primary" class="login-form-button" @click="registered" :disabled="Boolean(this.$Cookies.get('name'))">注册</a-button>Or <a href="">register now! </a>
 
-          </el-form>
-        </div>
-      </el-card>
-    </el-row>
+        </a-form-item>
+      </a-form>
+    </a-card>
+
   </div>
 
 </template>
@@ -87,29 +80,21 @@ export default {
     },
     //登陆
     handleLogin () {
-      var that = this
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          let para = {
-            username: this.loginForm.username,
-            password: this.loginForm.password
-          }
-          this.logins(para).then(res => {
-            Object.assign(para, res)
-            this.$store.dispatch('LoginByUsername', para).then((res) => {
-              this.$router.push({
-                path: '/'
-              })
-            }).catch(() => {
-            })
-          }).catch((err) => {
-            this.$message.error(err);
-
+      console.log(232323232);
+      let para = {
+        username: this.loginForm.username,
+        password: this.loginForm.password
+      }
+      this.logins(para).then(res => {
+        Object.assign(para, res)
+        this.$store.dispatch('LoginByUsername', para).then((res) => {
+          this.$router.push({
+            path: '/'
           })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
+        }).catch(() => {
+        })
+      }).catch((err) => {
+        this.$message.error(err);
       })
     },
     logins (param) {
@@ -125,11 +110,16 @@ export default {
         password: this.loginForm.password
       }).then(res => {
         this.$message.success('注册成功');
-
       }).catch(err => {
         this.$message.error(err);
       })
-    }
+    },
+    // handleSubmit (e) {
+    //   return this.$request.post('/api/login', {
+    //     username: this.loginForm.username,
+    //     password: this.loginForm.password
+    //   })
+    // },
   },
   created () {
   }
@@ -138,38 +128,13 @@ export default {
 
 
 <style type="text/scss" lang="scss" scoped>
-$light_gray: #eee;
-.el-card.comment.is-always-shadow {
-  background-image: url("/img/bg.ab6d14fa.jpg");
-  background-repeat: no-repeat;
-  height: 730px;
-  width: 1100px;
-  overflow: hidden;
-  background-size: 100%;
-  position: relative;
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
 }
-.inputstayle {
-  width: 30%;
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
 }
-.login {
-  padding: 0px;
-  position: absolute;
+#components-form-demo-normal-login .login-form-button {
   width: 100%;
-  top: 26%;
-}
-.el-input {
-  display: inline-block;
-  input {
-    background: transparent;
-    border: 0px;
-    -webkit-appearance: none;
-    border-radius: 0px;
-    padding: 12px 5px 12px 15px;
-    color: $light_gray;
-    height: 47px;
-    &:-webkit-autofill {
-      -webkit-text-fill-color: #fff !important;
-    }
-  }
 }
 </style>

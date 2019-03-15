@@ -1,26 +1,5 @@
 <template>
   <div>
-    <!-- <el-card :body-style="{ padding: '0px',}" class="comment">
-      <el-form label-width="100px">
-        <div style="padding: 14px;">
-          <el-row>
-            <h3>文章</h3>
-          </el-row>
-          <el-row>
-            <el-collapse v-for="(item,index) in activeNames " :key="index">
-              <el-collapse-item :title="item.title" :name="item.ID">
-                <div>{{item.content}}</div>
-              </el-collapse-item>
-            </el-collapse>
-
-          </el-row>
-          <div class="bottom clearfix">
-            <time class="time">{{ currentDate }}</time>
-          </div>
-        </div>
-      </el-form>
-    </el-card> -->
-
     <a-list itemLayout="vertical" size="large" :pagination="pagination" :dataSource="listData">
       <a-list-item slot="renderItem" slot-scope="item, index" key="item.title">
         <template slot="actions">
