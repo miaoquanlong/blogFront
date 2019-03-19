@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="Card Title" style="width:50%;margin:55px auto">
+    <a-card title="登陆" style="width:50%;margin:55px auto">
       <a href="#" slot="extra">more</a>
       <a-form id="components-form-demo-normal-login" class="login-form">
         <a-form-item>
@@ -80,7 +80,6 @@ export default {
     },
     //登陆
     handleLogin () {
-      console.log(232323232);
       let para = {
         username: this.loginForm.username,
         password: this.loginForm.password
@@ -91,6 +90,7 @@ export default {
           this.$router.push({
             path: '/'
           })
+
         }).catch(() => {
         })
       }).catch((err) => {
@@ -114,12 +114,6 @@ export default {
         this.$message.error(err);
       })
     },
-    // handleSubmit (e) {
-    //   return this.$request.post('/api/login', {
-    //     username: this.loginForm.username,
-    //     password: this.loginForm.password
-    //   })
-    // },
   },
   created () {
   }

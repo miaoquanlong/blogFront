@@ -31,8 +31,8 @@ const user = {
             return new Promise(resolve => {
                 Cookies.remove('name');
                 Cookies.remove('Uid');
-                resolve();
-                location.reload()
+                resolve(location.reload());
+
             })
         }
 

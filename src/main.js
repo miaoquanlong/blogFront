@@ -14,14 +14,46 @@ import * as _ from "lodash";
 import "./assets/css/index.scss"; // css重置。
 import Antd from 'ant-design-vue'//使用antd
 import "ant-design-vue/dist/antd.css";
+//socket
+// import VueSocketio from 'vue-socket.io';
 
-// Vue.use(ElementUI)
+import VueSocketIO from 'vue-socket.io';
+import socketio from 'socket.io-client';
+
+Vue.use(new VueSocketIO({
+    debug: false,
+    connection: 'http://localhost:9003/',
+}))
+
+// Vue.mixin({
+
+//     methods: {
+//         tooltips () {
+//             this.$message.success(this.$Cookies.get('name') + "加入了聊天室")
+//         }
+//     },
+
+//     beforeRouteLeave: ((to, from, next) => {
+//         next()
+//     }),
+//     beforeRouteEnter: ((to, from, next) => {
+//         if (to.fullPath === '/TechnologyCenter') {
+//             next(vm => {
+//                 vm.tooltips()
+//             })
+//         }
+//         next()
+
+//     })
+// })
+
+
+
 Vue.use(Antd)
 Vue.prototype.$request = axios
 Vue.prototype.$message = message
 Vue.prototype.$Cookies = Cookies
 Vue.prototype.momentTime = momentTime;
-
 
 Vue.config.productionTip = false
 

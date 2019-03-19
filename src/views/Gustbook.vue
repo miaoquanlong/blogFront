@@ -60,9 +60,9 @@
       </a-list-item>
     </a-list>
 
-    <div slot="content">
-      <a-textarea :rows="4" v-model="form.text" :placeholder="placeholder"></a-textarea>
-      <span style="margin:15px">
+    <div slot="content" >
+      <a-textarea :rows="4" v-model="form.text" :placeholder="placeholders" ></a-textarea>
+      <span style="line-height: 60px; margin: 15px;">
         <a-button htmlType="submit" :loading="submitting" @click="onSubmit" type="primary">
           立即评论
         </a-button>
@@ -100,7 +100,7 @@ export default {
       messageID: '',
       replyVisible: false,
       messages: [],
-      placeholder: `${this.$Cookies.get('name')},` + '留下您的精彩言论吧~~',
+      placeholders: '',
       //   currentDate: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate() + '  ' + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()
     }
 
@@ -205,10 +205,20 @@ export default {
     //回复过后重载数据
     reload () {
       this.getmessages()
+    },
+    //placeholder
+    placeholder () {
+      Boolean(`${this.$Cookies.get('name')},`) ? (`${this.$Cookies.get('name')},`) : '游客' + '留下您的精彩言论吧~~'
+      if (this.$Cookies.get('name')) {
+        this.placeholders = `${this.$Cookies.get('name')},` + '留下您的精彩言论吧~~'
+      } else {
+        this.placeholders = '请登陆后再留言噢~'
+      }
     }
   },
   created () {
     this.getmessages()
+    this.placeholder()
   }
 
 

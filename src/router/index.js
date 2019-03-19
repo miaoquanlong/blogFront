@@ -65,11 +65,11 @@ export default new Router({
         //     name: 'Links',
         //     component: Links,
         // },
-        // {
-        //     path: '/TechnologyCenter',
-        //     name: '技术中心',
-        //     component: TechnologyCenter,
-        // }
+        {
+            path: '/TechnologyCenter',
+            name: '聊天室',
+            component: TechnologyCenter,
+        }
     ]
 
 })
