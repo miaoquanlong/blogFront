@@ -24,7 +24,6 @@
       <!-- 用户列表 -->
       <a-col :md="3" :lg="3">
         <a-card :title=" `当前在线${onlineusers}人`  " class="chartbody">
-          <a href="#" slot="extra">more</a>
           <div v-for="(item,index) in usetList">
             <p>{{item}}</p>
           </div>

@@ -39,8 +39,16 @@
               <a-button type="primary" icon="delete" :size="size" @click="deletemessage(item.userID,item.ID)" v-if="item.userID  == $Cookies.get('Uid')">删除</a-button>
             </span>
           </template>
-          <p slot="content">{{item.content}}</p>
-          <a-input v-model="item.content" v-if="item.canEdit"></a-input>
+          <span slot="content">
+            <p v-if="!item.canEdit">{{item.content}}</p>
+            <p v-else>
+              <a-input-search v-model="item.content" style="margin-top:5px" @search="cancel(item)">
+                <a-button slot="enterButton">取消</a-button>
+              </a-input-search>
+            </p>
+
+          </span>
+
           <a-comment v-for="(activity, index) in item.children">
             <a slot="author">{{activity.replyname}}:</a>
             <template slot="actions">
@@ -60,8 +68,8 @@
       </a-list-item>
     </a-list>
 
-    <div slot="content" >
-      <a-textarea :rows="4" v-model="form.text" :placeholder="placeholders" ></a-textarea>
+    <div slot="content">
+      <a-textarea :rows="4" v-model="form.text" :placeholder="placeholders"></a-textarea>
       <span style="line-height: 60px; margin: 15px;">
         <a-button htmlType="submit" :loading="submitting" @click="onSubmit" type="primary">
           立即评论
@@ -214,6 +222,11 @@ export default {
       } else {
         this.placeholders = '请登陆后再留言噢~'
       }
+    },
+    //取消输入
+    cancel (val) {
+      console.log(val);
+      return val.canEdit = !val.canEdit
     }
   },
   created () {
