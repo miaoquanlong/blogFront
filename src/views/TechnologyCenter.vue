@@ -23,12 +23,11 @@
 
       <!-- 用户列表 -->
       <a-col :md="3" :lg="3">
-        <a-card title="在线人员">
+        <a-card :title=" `当前在线${onlineusers}人`  " class="chartbody">
           <a href="#" slot="extra">more</a>
           <div v-for="(item,index) in usetList">
-            <p>{{item.username}}</p>
+            <p>{{item}}</p>
           </div>
-
         </a-card>
       </a-col>
     </a-row>
@@ -44,6 +43,7 @@ export default {
       message: [],
       usetList: [],
       scrollTopHeight: 0,
+      onlineusers: 0,
       chartmessage: {
         username: this.$Cookies.get('name'),
         content: '',
@@ -55,7 +55,7 @@ export default {
   sockets: {
     //不能改,建立连接自动调用connect
     connect: function () {
-      console.log(this.$Cookies.get('name') + "加入了聊天室");
+      console.log(this.$Cookies.get('name') + "进入了房间");
     },
     //服务端向客户端发送login事件
     login: function (value) {
@@ -67,16 +67,18 @@ export default {
     },
     //广播用户进入聊天室
     userenter (val) {
-      this.$message.success(val + "加入了聊天室")
+      this.$message.success(val ? val + "进入了房间" : '一位不具名的调皮游客' + "进入了房间")
     },
     //广播用户离开聊天室
     userlogout (val) {
-      this.$message.success(val + "离开了聊天室")
+      this.$message.success(val[0] ? val[0] + "离开了房间" : '一位不具名的调皮游客' + "离开了房间")
+      this.usetList = val[1]
     },
     //获取当前在线人员
-    userList (val) {
-      console.log(val, "232");
-      this.usetList = val
+    userList (val, length) {
+      this.usetList = val[0]
+      this.onlineusers = val[1]
+
     }
   },
   methods: {
