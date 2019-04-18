@@ -22,7 +22,7 @@ import socketio from 'socket.io-client';
 
 Vue.use(new VueSocketIO({
     debug: false,
-    connection: 'http://localhost:9003/',
+    connection: 'http://193.112.58.152:9004/',
 }))
 
 // Vue.mixin({

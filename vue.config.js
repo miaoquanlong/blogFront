@@ -4,7 +4,7 @@ module.exports = {
         port: 3001,
         proxy: {
             '/api': {
-                target: 'http://127.0.0.1:3303',
+                target: 'http://193.112.58.152:3303',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api/': ''
@@ -24,3 +24,6 @@ module.exports = {
     //     }]
     // }]
 }
+
+
+

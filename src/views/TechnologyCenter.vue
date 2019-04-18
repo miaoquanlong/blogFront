@@ -24,8 +24,10 @@
       <!-- 用户列表 -->
       <a-col :md="3" :lg="3">
         <a-card :title=" `当前在线${onlineusers}人`  " class="chartbody">
-          <div v-for="(item,index) in usetList">
-            <p>{{item}}</p>
+          <div v-for="(item,index) in usetList" class="userlist">
+            <p <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="Han Solo" />
+            {{item}}
+            </p>
           </div>
         </a-card>
       </a-col>
@@ -128,5 +130,11 @@ form.ant-form.ant-form-horizontal {
 .chartbody {
   height: 600px !important;
   overflow: auto !important;
+}
+.userlist {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
